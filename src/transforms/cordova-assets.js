@@ -1,8 +1,8 @@
 export function CORDOVA_ASSET_TEMPLATE(assetType, platform, {src, d, w, h} = {}) {
-    return `<${assetType} src="${src}" platform="${platform}"${d?` density="${d}"`:``}${w?` width="${w}"`:``}${h?` height="${h}`:``}" />`;
+    return `<${assetType} src="${src}" platform="${platform}"${d?` density="${d}"`:``}${w?` width="${w}"`:``}${h?` height="${h}"`:``} />`;
 }
 export function PGBUILD_ASSET_TEMPLATE(assetType, platform, {src, d, w, h} = {}) {
-    return `<${assetType} src="${src}" gap:platform="${platform}"${d?` gap:qualifier="${d}"`:``}${w?` width="${w}"`:``}${h?` height="${h}`:``}" />`;
+    return `<${assetType} src="${src}" gap:platform="${platform}"${d?` gap:qualifier="${d}"`:``}${w?` width="${w}"`:``}${h?` height="${h}"`:``} />`;
 }
 
 /**
@@ -18,7 +18,7 @@ export function transformCordovaAssets(assetType, assetTemplate, {cordova} = {co
         return platforms.map( platform => {
             let assetList = assets[platform];
             if (assetList instanceof Array) {
-                return assetList.map(assetTemplate.bind(undefined, assetType, platform));
+                return assetList.map(assetTemplate.bind(undefined, assetType, platform)).join("\n  ");
             } else {
                 return "";
             }
