@@ -6,6 +6,10 @@ This module is somewhat opinionated — it makes the assumption (founded or not)
 
 > **IMPORTANT**: This is a 0.1 version. Take that into consideration when using it. It might blow up in your face, run away with your computer, or reach out and throttle you at the most inopportune moment. More likely, it just won’t work the way you expect. (In that case, feel free to contribute or file a bug. In the other cases: I’m not liable!) Furthermore, the interface is extremely apt to change, especially as the functionality is fleshed out.
 
+
+
+> **ALSO VERY IMPORTANT**: If you rely on keeping any information in the `.cordova` directory (like the PhoneGap Build App ID), _be very careful_! If you delete the `build` directory (like I do) without saving this information, you may be in a world of hurt.
+
 ## Installing Cordova Tasks
 
 Cordova Tasks is available via NPM, and depends on Gulp and [`gulp-replace-task`](https://www.npmjs.com/package/gulp-replace-task) if you want to utilize the substitution functionality.
