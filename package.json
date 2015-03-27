@@ -1,6 +1,6 @@
 {
   "name": "cordova-tasks",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Use with task runners like gulp to integrate with Cordova",
   "main": "lib/index.js",
   "scripts": {
