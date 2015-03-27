@@ -89,7 +89,7 @@ export class CordovaTasks {
      * command
      */
     cdUp() {
-        process.chdir("..");
+        process.chdir(".."); //TODO: This should probably be this.basePath
     }
 
     /**
