@@ -22,7 +22,8 @@ function performSubstitutions(replace, pkg) {
                 match:       /{{{SPLASHES}}}/g,
                 replacement: transforms.transformCordovaAssets.bind(null, "splash", transforms.templates.CORDOVA_ASSET_TEMPLATE, pkg)
             },
-            {match: /{{{GAP:PLUGINS}}}/g, replacement: transforms.transformCordovaPlugins.bind(null, pkg)},
+            {match: /{{{PLUGINS}}}/g, replacement: transforms.transformCordovaPlugins.bind(null, transforms.templates.CORDOVA_PLUGIN_TEMPLATE, pkg)},
+            {match: /{{{GAP:PLUGINS}}}/g, replacement: transforms.transformCordovaPlugins.bind(null, transforms.templates.PGBUILD_PLUGIN_TEMPLATE, pkg)},
             {
                 match:       /{{{GAP:ICONS}}}/g,
                 replacement: transforms.transformCordovaAssets.bind(null, "icon", transforms.templates.PGBUILD_ASSET_TEMPLATE, pkg)
@@ -124,9 +125,10 @@ export class CordovaTasks {
     /**
      * build the cordova project
      */
-    build({buildMode, options=[]}) {
+    build({buildMode=BUILD_MODE_DEBUG, platforms, options=[]} = {}) {
         this.cdProject();
         return cordova.build({
+            platforms,
             options: ["--" + buildMode].concat(options)
         }).then(this.cdUp);
     }
@@ -134,15 +136,15 @@ export class CordovaTasks {
     /**
      * prepare the cordova project
      */
-    prepare() {
-        this.cdProject();
+    prepare({options=[]} = {}) {
+        this.cdProject({options});
         return cordova.prepare().then(this.cdUp);
     }
 
     /**
      * emulate the app with the specified platform
      */
-    emulate({platform, buildMode=BUILD_MODE_DEBUG}, options=[]) {
+    emulate({platform, buildMode=BUILD_MODE_DEBUG, options=[]} = {}) {
         this.cdProject();
         return cordova.emulate({
             platforms: [platform],
@@ -153,7 +155,7 @@ export class CordovaTasks {
     /**
      * run the app on the specified platform
      */
-    run({platform, buildMode=BUILD_MODE_DEBUG, options=[]}) {
+    run({platform, buildMode=BUILD_MODE_DEBUG, options=[]} = {}) {
         this.cdProject();
         return cordova.run({
             platforms: [platform],
