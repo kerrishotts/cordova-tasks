@@ -1,6 +1,6 @@
 {
   "name": "cordova-tasks",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Use with task runners like gulp to integrate with Cordova",
   "main": "lib/index.js",
   "scripts": {
@@ -18,12 +18,12 @@
   "author": "Kerri Shotts <kerrishotts@gmail.com> (http://www.photokandy.com)",
   "license": "MIT",
   "devDependencies": {
-    "babel": "^4.6.3",
+    "babel": "^5.1.11",
     "mocha": "^2.1.0",
     "should": "^5.0.1"
   },
   "dependencies": {
-    "cordova-lib": "^4.2.0",
-    "core-js": "^0.6.1"
+    "cordova-lib": "^5.0.0",
+    "core-js": "^0.9.0"
   }
 }
