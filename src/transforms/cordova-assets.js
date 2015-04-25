@@ -1,3 +1,5 @@
+"use strict";
+
 export function CORDOVA_ASSET_TEMPLATE(assetType, platform, {src, d, w, h} = {}) {
     return `<${assetType} src="${src}" platform="${platform}"${d?` density="${d}"`:``}${w?` width="${w}"`:``}${h?` height="${h}"`:``} />`;
 }
