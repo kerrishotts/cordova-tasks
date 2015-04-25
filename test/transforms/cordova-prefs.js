@@ -1,56 +1,46 @@
 import "core-js/shim";
-import {transformCordovaPlugins} from "../../src/transforms/cordova-plugins";
+import {transformCordovaPrefs} from "../../src/transforms/cordova-prefs";
 
 let should = require("should");
 
-let singlePluginNoVersion = {
+let singlePref = {
     cordova: {
-        plugins: [
-            "org.apache.cordova.file"
-        ]
-    }
-};
-let singlePluginWithVersion = {
-    cordova: {
-        plugins: [
-            "org.apache.cordova.file@1.3.0"
-        ]
-    }
-};
-let doublePluginNoVersion = {
-    cordova: {
-        plugins: [
-            "org.apache.cordova.file",
-            "org.apache.cordova.device"
-        ]
+        preferences: {
+            "orientation": "default"
+        }
     }
 };
 
-describe("cordova-plugins", () => {
-    describe("#no-plugins", () => {
+let doublePref = {
+    cordova: {
+        preferences: {
+            "orientation": "default",
+            "fullscreen":  "false"
+        }
+    }
+};
+
+
+describe("cordova-prefs", () => {
+    describe("#no-prefs", () => {
         it("should result in an empty string", () => {
-            var result = transformCordovaPlugins();
+            var result = transformCordovaPrefs();
             should(result).be.equal(``);
         })
     });
-    describe("#single-plugin-no-version", () => {
-        it("should result in a single, well-formed XML tag with no version attribute", () => {
-            var result = transformCordovaPlugins(singlePluginNoVersion);
-            should(result).be.equal(`<gap:plugin name="${singlePluginNoVersion.cordova.plugins[0]}" src="plugins.cordova.io" />`);
+    describe("#single-pref", () => {
+        it("should result in a single, well-formed XML tag", () => {
+            var result = transformCordovaPrefs(singlePref);
+            should(result).be.equal(`<preference name="${Object.keys(singlePref.cordova.preferences)[0]}" value="${singlePref.cordova.preferences.orientation}" />`);
         })
     });
-    describe("#single-plugin-with-version", () => {
-        it("should result in a single, well-formed XML tag with a version attribute", () => {
-            var result = transformCordovaPlugins(singlePluginWithVersion);
-            should(result).be.equal(`<gap:plugin name="org.apache.cordova.file" version="1.3.0" src="plugins.cordova.io" />`);
+    describe("#double-pref", () => {
+        it("should result in a two well-formed XML tags", () => {
+            var result = transformCordovaPrefs(doublePref);
+            should(result).be.equal(
+                `<preference name="${Object.keys(doublePref.cordova.preferences)[0]}" value="${doublePref.cordova.preferences.orientation}" />
+  <preference name="${Object.keys(doublePref.cordova.preferences)[1]}" value="${doublePref.cordova.preferences.fullscreen}" />`);
         })
-    });
-    describe("#double-plugin-no-version", () => {
-        it("should result in two well-formed XML tags with no version attribute", () => {
-            var result = transformCordovaPlugins(doublePluginNoVersion);
-            should(result).be.equal(`<gap:plugin name="${doublePluginNoVersion.cordova.plugins[0]}" src="plugins.cordova.io" />
-  <gap:plugin name="${doublePluginNoVersion.cordova.plugins[1]}" src="plugins.cordova.io" />`);
-        })
-    });
+    })
 });
 
