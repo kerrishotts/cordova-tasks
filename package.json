@@ -16,6 +16,10 @@
     "lib"
   ],
   "author": "Kerri Shotts <kerrishotts@gmail.com> (http://www.photokandy.com)",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/kerrishotts/cordova-tasks"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel": "^5.1.11",
